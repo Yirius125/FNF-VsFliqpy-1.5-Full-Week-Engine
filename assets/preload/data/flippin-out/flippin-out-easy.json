@@ -1,6 +1,6 @@
 {
      "song" : {
-         "player1" : "bfscared"
+         "player1" : "bf"
         ,"isMoody" : true
         ,"notes" : [
              {
@@ -11893,7 +11893,7 @@
                 ,"mustHitSection" : true
             }
         ]
-        ,"player2" : "fliqpy-crazy"
+        ,"player2" : "flippy"
         ,"isHey" : false
         ,"cutsceneType" : "templateDialog"
         ,"isSpooky" : true
@@ -11901,9 +11901,9 @@
         ,"needsVoices" : true
         ,"sections" : 45
         ,"stage" : "land-destroyed"
-        ,"uiType" : "creepy"
-        ,"speed" : 3.5
+        ,"ui_Style" : "Creepy"
+        ,"speed" : 4
         ,"bpm" : 250
-        ,"gf" : "gf-scared"
+        ,"gf" : "gf"
     }
 }

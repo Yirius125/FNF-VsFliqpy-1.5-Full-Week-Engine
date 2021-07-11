@@ -1,5 +1,5 @@
-Flippy Roll:flippy:1
-Happy Tree-Land:flippy:1
-Massacre:flippy:1
-Flippin Out:flippy:1
+Flippy Roll:fliqpy:1
+Happy Tree-Land:fliqpy:1
+Massacre:flippy-crazy:1
+Flippin Out:phsycho-fliqpy:1
 UnFlipped Out:flippy:1

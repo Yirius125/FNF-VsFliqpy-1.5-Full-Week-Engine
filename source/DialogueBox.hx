@@ -112,7 +112,7 @@ class DialogueBox extends FlxSpriteGroup
 						portraitLeft.frames = Paths.getSparrowAtlas('portraits/crazy_fliqpy');
 						dadSoundText = 'crazy_fliqpy_text';}
 					case 'flippin-out':{
-						portraitLeft.frames = Paths.getSparrowAtlas('portraits/pshyco_fliqpy');
+						portraitLeft.frames = Paths.getSparrowAtlas('portraits/phycho_fliqpy');
 						dadSoundText = 'phsyco_fliqpy_text';}
 					case 'unflipped-out':{
 						portraitLeft.frames = Paths.getSparrowAtlas('portraits/flippy');
@@ -123,7 +123,7 @@ class DialogueBox extends FlxSpriteGroup
 				portraitLeft.scrollFactor.set();
 				add(portraitLeft);
 
-				portraitLeft.x = 10;
+				portraitLeft.x = -600;
 				portraitLeft.y = box.y - 350;
 
 				portraitLeft.visible = false;
@@ -132,9 +132,7 @@ class DialogueBox extends FlxSpriteGroup
 				switch(PlayState.SONG.song.toLowerCase()){
 					case 'flippy-roll','happy-tree-land':{
 						portraitRight.frames = Paths.getSparrowAtlas('portraits/bfPortrait');}
-					case 'massacre':{
-						portraitRight.frames = Paths.getSparrowAtlas('portraits/bfPortrait');}
-					case 'flippin-out':{
+					case 'massacre', 'flippin-out':{
 						portraitRight.frames = Paths.getSparrowAtlas('portraits/scared_bf');}
 					case 'unflipped-out':{
 						portraitRight.frames = Paths.getSparrowAtlas('portraits/happy_bf');}
@@ -145,7 +143,7 @@ class DialogueBox extends FlxSpriteGroup
 				portraitRight.scrollFactor.set();
 				add(portraitRight);
 
-				portraitRight.x = FlxG.width - portraitRight.width - 10;
+				portraitRight.x = FlxG.width - portraitRight.width + 150;
 				portraitRight.y = box.y - 350;
 
 				portraitRight.visible = false;
@@ -164,12 +162,12 @@ class DialogueBox extends FlxSpriteGroup
 		}
 
 		dropText = new FlxText(242, 502, Std.int(FlxG.width * 0.6), "", 32);
-		dropText.font = 'Pixel Arial 11 Bold';
+		dropText.font = 'VCR OSD Mono';
 		dropText.color = 0xFFD89494;
 		add(dropText);
 
 		swagDialogue = new FlxTypeText(240, 500, Std.int(FlxG.width * 0.6), "", 32);
-		swagDialogue.font = 'Pixel Arial 11 Bold';
+		swagDialogue.font = 'VCR OSD Mono';
 		swagDialogue.color = 0xFF3F2021;
 		swagDialogue.sounds = [FlxG.sound.load(Paths.sound('dialogue_sound'+dadSoundText), 0.6)];
 		add(swagDialogue);
@@ -270,14 +268,18 @@ class DialogueBox extends FlxSpriteGroup
 				portraitRight.visible = false;
 				if (!portraitLeft.visible)
 				{
+					box.animation.play('normalOpen');
+					box.flipX = true;
 					portraitLeft.visible = true;
 					portraitLeft.animation.play('enter');
 				}
 			case 'bf':
 				swagDialogue.sounds = [FlxG.sound.load(Paths.sound('dialogue_sound/'+bfSoundText), 0.6)];
-				portraitLeft.visible = false;
+				portraitLeft.visible = false;				
 				if (!portraitRight.visible)
 				{
+					box.animation.play('normalOpen');
+					box.flipX = false;
 					portraitRight.visible = true;
 					portraitRight.animation.play('enter');
 				}

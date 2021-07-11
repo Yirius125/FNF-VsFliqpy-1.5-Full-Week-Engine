@@ -559,7 +559,8 @@ class PlayState extends MusicBeatState
 				dad.y += 300;
 				camPos.y += 50;
 			case "flippy-crazy":
-				dad.y += 300;
+				dad.y += 320;
+				dad.x += 20;
 				camPos.y += 50;
 			case 'pico':
 				camPos.x += 600;
@@ -772,11 +773,11 @@ class PlayState extends MusicBeatState
 		botPlayState.borderQuality = 2;
 		if(PlayStateChangeables.botPlay && !loadRep) add(botPlayState);
 
-		iconP1 = new HealthIcon(SONG.player1, true);
+		iconP1 = new HealthIcon(SONG.player1, true, curStage);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
 		add(iconP1);
 
-		iconP2 = new HealthIcon(SONG.player2, false);
+		iconP2 = new HealthIcon(SONG.player2, false, curStage);
 		iconP2.y = healthBar.y - (iconP2.height / 2);
 		add(iconP2);
 

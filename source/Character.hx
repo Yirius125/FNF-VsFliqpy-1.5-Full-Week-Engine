@@ -18,13 +18,22 @@ class Character extends FlxSprite
 
 	public var holdTimer:Float = 0;
 
-	public function new(x:Float, y:Float, ?character:String = "bf", ?stage:String = "default", ?isPlayer:Bool = false)
+	public var customOffest:Bool = false;
+	public var customOffestX:Int = 0;
+	public var customOffestY:Int = 0;
+
+	public function new(x:Float, y:Float, ?character:String = "bf", ?stage:String = "default", ?isPlayer:Bool = false, ?offest:Bool = false, offestY:Int = 0, offestX:Int = 0)
 	{
 		super(x, y);
 
 		animOffsets = new Map<String, Array<Dynamic>>();
 		curCharacter = character;
 		curStage = stage;
+
+		customOffest = offest;
+		customOffestX = offestX;
+		customOffestY = offestY;
+
 		this.isPlayer = isPlayer;
 
 		var tex:FlxAtlasFrames;
@@ -39,6 +48,8 @@ class Character extends FlxSprite
 						tex = Paths.getSparrowAtlas('characters/GF_assets');
 					case 'land-destroyed':
 						tex = Paths.getSparrowAtlas('characters/GF_Hurt_assets');
+					case 'land-cute', 'land-deadbodys':
+						tex = Paths.getSparrowAtlas('characters/GF_statue_assets');
 				}
 				
 				frames = tex;
@@ -53,20 +64,6 @@ class Character extends FlxSprite
 				animation.addByIndices('hairBlow', "GF Dancing Beat Hair blowing", [0, 1, 2, 3], "", 24);
 				animation.addByIndices('hairFall', "GF Dancing Beat Hair Landing", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "", 24, false);
 				animation.addByPrefix('scared', 'GF FEAR', 24);
-
-				addOffset('cheer');
-				addOffset('sad', -2, -2);
-				addOffset('danceLeft', 0, -9);
-				addOffset('danceRight', 0, -9);
-
-				addOffset("singUP", 0, 4);
-				addOffset("singRIGHT", 0, -20);
-				addOffset("singLEFT", 0, -19);
-				addOffset("singDOWN", 0, -20);
-				addOffset('hairBlow', 45, -8);
-				addOffset('hairFall', 0, -9);
-
-				addOffset('scared', -2, -17);
 
 				playAnim('danceRight');
 
@@ -102,21 +99,6 @@ class Character extends FlxSprite
 
 				animation.addByPrefix('scared', 'BF idle shaking', 24);
 
-				addOffset('idle', -5);
-				addOffset("singUP", -29, 27);
-				addOffset("singRIGHT", -38, -7);
-				addOffset("singLEFT", 12, -6);
-				addOffset("singDOWN", -10, -50);
-				addOffset("singUPmiss", -29, 27);
-				addOffset("singRIGHTmiss", -30, 21);
-				addOffset("singLEFTmiss", 12, 24);
-				addOffset("singDOWNmiss", -11, -19);
-				addOffset("hey", 7, 4);
-				addOffset('firstDeath', 37, 11);
-				addOffset('deathLoop', 37, 5);
-				addOffset('deathConfirm', 37, 69);
-				addOffset('scared', -4);
-
 				playAnim('idle');
 
 				flipX = true;
@@ -136,25 +118,13 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHT', 'Pico NOTE LEFT', 24);
 				animation.addByPrefix('singDOWN', 'Pico Down Note', 24);
 				animation.addByPrefix('singLEFT', 'Pico Note Right', 24);
+				
+				animation.addByPrefix('singUP-alt', 'SCREAM up note', 24);
+				animation.addByPrefix('singDOWN-alt', 'SCREAM up note', 24);
+				animation.addByPrefix('singLEFT-alt', 'SCREAM note', 24);
+				animation.addByPrefix('singRIGHT-alt', 'SCREAM note', 24);
 
 				addOffset('idle');
-				switch(curStage){
-					case 'land-cute':
-						addOffset("singUP", -20, 45);
-						addOffset("singRIGHT", -50, -10);
-						addOffset("singLEFT", 80, 0);
-						addOffset("singDOWN", 180, -80);
-					case 'land-destroyed':
-						addOffset("singUP", -30, 40);
-						addOffset("singRIGHT", -80, -10);
-						addOffset("singLEFT", 60, 0);
-						addOffset("singDOWN", 0, -80);
-					default:
-						addOffset("singUP", -18, 43);
-						addOffset("singRIGHT", -70, 0);
-						addOffset("singLEFT", 80, -2);
-						addOffset("singDOWN", 180, -10);
-				}
 
 				playAnim('idle');
 
@@ -169,12 +139,6 @@ class Character extends FlxSprite
 				animation.addByPrefix('singRIGHT', 'FliqpyBLOOD NOTE LEFT', 24);
 				animation.addByPrefix('singDOWN', 'FliqpyBLOOD Down Note', 24);
 				animation.addByPrefix('singLEFT', 'FliqpyBLOOD Note Right', 24);
-
-				addOffset('idle');
-				addOffset("singUP", -20, 45);
-				addOffset("singRIGHT", -50, -10);
-				addOffset("singLEFT", 80, 0);
-				addOffset("singDOWN", 0, -80);
 
 				playAnim('idle');
 
@@ -191,12 +155,87 @@ class Character extends FlxSprite
 				animation.addByPrefix('singLEFT', 'Dad Sing Note LEFT', 24);
 
 				addOffset('idle');
-				addOffset("singUP", -6, 50);
-				addOffset("singRIGHT", 0, 27);
-				addOffset("singLEFT", -10, 10);
-				addOffset("singDOWN", 0, -30);
 
 				playAnim('idle');
+		}
+
+		//Offest Mayor Arriba, Menor Abajo
+		//Offest Mayor Izquierda, Menor Derecha
+		if(!customOffest){
+			switch(curCharacter){
+				case 'gf':{
+					addOffset('cheer');
+					addOffset('sad', -2, -2);
+					addOffset('danceLeft', 0, -9);
+					addOffset('danceRight', 0, -9);
+
+					addOffset("singUP", 0, 4);
+					addOffset("singRIGHT", 0, -20);
+					addOffset("singLEFT", 0, -19);
+					addOffset("singDOWN", 0, -20);
+					addOffset('hairBlow', 45, -8);
+					addOffset('hairFall', 0, -9);
+
+					addOffset('scared', -2, -17);
+				}
+				case 'bf':{
+					addOffset('idle', -5);
+					addOffset("singUP", -29, 27);
+					addOffset("singRIGHT", -38, -7);
+					addOffset("singLEFT", 12, -6);
+					addOffset("singDOWN", -10, -50);
+					addOffset("singUPmiss", -29, 27);
+					addOffset("singRIGHTmiss", -30, 21);
+					addOffset("singLEFTmiss", 12, 24);
+					addOffset("singDOWNmiss", -11, -19);
+					addOffset("hey", 7, 4);
+					addOffset('firstDeath', 37, 11);
+					addOffset('deathLoop', 37, 5);
+					addOffset('deathConfirm', 37, 69);
+					addOffset('scared', -4);
+				}
+				case 'flippy':{
+					switch(curStage){
+						case 'land-cute':
+							addOffset("singUP", -20, 33);
+							addOffset("singRIGHT", -50, -10);
+							addOffset("singLEFT", 75, -10);
+							addOffset("singDOWN", 190, -80);
+						case 'land-destroyed':
+							addOffset("singUP", -6, 39);
+							addOffset("singRIGHT", -25, 10);
+							addOffset("singLEFT", 39, -16);
+							addOffset("singDOWN", 2, -61);
+							addOffset("singUP-alt", 0, 0);
+							addOffset("singRIGHT-alt", 0, 0);
+							addOffset("singLEFT-alt", 0, 0);
+							addOffset("singDOWN-alt", 0, 0);
+						default:
+							addOffset("singUP", -30, 40);
+							addOffset("singRIGHT", -95, -5);
+							addOffset("singLEFT", 60, 5);
+							addOffset("singDOWN", 183, -15);
+					}
+				}
+				case 'flippy-crazy':{
+					addOffset('idle');
+					addOffset("singUP", 7, 48);
+					addOffset("singRIGHT", 25, 8);
+					addOffset("singLEFT", 80, 9);
+					addOffset("singDOWN", -15, -75);
+				}
+				case 'dad':{
+					addOffset("singUP", -6, 50);
+					addOffset("singRIGHT", 0, 27);
+					addOffset("singLEFT", -10, 10);
+					addOffset("singDOWN", 0, -30);
+				}
+			}
+		}else{
+			addOffset("singUP", customOffestX, customOffestY);
+			addOffset("singRIGHT", customOffestX, customOffestY);
+			addOffset("singLEFT", customOffestX, customOffestY);
+			addOffset("singDOWN", customOffestX, customOffestY);
 		}
 
 		dance();

@@ -45,7 +45,7 @@ class GameplayCustomizeState extends MusicBeatState
 		DiscordClient.changePresence("Customizing Gameplay", null);
 		#end
 
-        sick = new FlxSprite().loadGraphic(Paths.image('sick','shared'));
+        sick = new FlxSprite().loadGraphic(Paths.image('style_UI/Normal/sick','shared'));
         sick.scrollFactor.set();
         background = new FlxSprite(-600, -200).loadGraphic(Paths.image('stageback','shared'));
         curt = new FlxSprite(-500, -300).loadGraphic(Paths.image('stagecurtains','shared'));
@@ -70,7 +70,7 @@ class GameplayCustomizeState extends MusicBeatState
 
 		var camFollow = new FlxObject(0, 0, 1, 1);
 
-		dad = new Character(100, 100, 'dad');
+		dad = new Character(100, 100, 'dad', false, true);
 
         bf = new Boyfriend(770, 450, 'bf');
 
@@ -207,7 +207,7 @@ class GameplayCustomizeState extends MusicBeatState
             {
                 // FlxG.log.add(i);
                 var babyArrow:FlxSprite = new FlxSprite(0, strumLine.y);
-                babyArrow.frames = Paths.getSparrowAtlas('NOTE_assets', 'shared');
+                babyArrow.frames = Paths.getSparrowAtlas('style_UI/Normal/NOTE_assets', 'shared');
                 babyArrow.animation.addByPrefix('green', 'arrowUP');
                 babyArrow.animation.addByPrefix('blue', 'arrowDOWN');
                 babyArrow.animation.addByPrefix('purple', 'arrowLEFT');
